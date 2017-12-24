@@ -17,7 +17,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
 
 	
 	int nHeightNext = pindexLast->nHeight + 1;	
-	if (nHeightNext >= params.BTGHeight  && nHeightNext < params.BTGHeight + params.BTGPremineWindow)
+	if (nHeightNext >= params.BGKHeight  && nHeightNext < params.BGKHeight + params.BGKPremineWindow)
     {	
         // Lowest difficulty for Bitcoin GPU premining period.
         return nProofOfWorkLimit;

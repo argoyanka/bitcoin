@@ -106,7 +106,7 @@ BOOST_AUTO_TEST_CASE(BitcoinGPUPreminingEnd_test)
 {
     const auto chainParams = CreateChainParams(CBaseChainParams::MAIN);
     const auto& params = chainParams->GetConsensus();
-    int nHeightPreminingEnd = 487427 + params.BTGPremineWindow;
+    int nHeightPreminingEnd = 487427 + params.BGKPremineWindow;
     int nHeightLast = nHeightPreminingEnd + params.DifficultyAdjustmentInterval();
     int nHeightFirst = nHeightPreminingEnd - params.DifficultyAdjustmentInterval();
     // Build a chain of blocks surrounding the first block after premining period.
