@@ -3094,6 +3094,10 @@ static bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationSta
             return state.DoS(100, error("%s: forked chain older than last checkpoint (height %d)", __func__, nHeight), REJECT_CHECKPOINT, "bad-fork-prior-to-checkpoint");
     }
 
+	// Check block height for blocks after BTG fork.
+    if (nHeight >= consensusParams.BTGHeight && block.nHeight != (uint32_t)nHeight)
+        return state.Invalid(false, REJECT_INVALID, "bad-height", "incorrect block height");
+	
     // Check timestamp against prev
     if (block.GetBlockTime() <= pindexPrev->GetMedianTimePast())
         return state.Invalid(false, REJECT_INVALID, "time-too-old", "block's timestamp is too early");
@@ -3106,7 +3110,9 @@ static bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationSta
     // check for version 2, 3 and 4 upgrades
     if((block.nVersion < 2 && nHeight >= consensusParams.BIP34Height) ||
        (block.nVersion < 3 && nHeight >= consensusParams.BIP66Height) ||
-       (block.nVersion < 4 && nHeight >= consensusParams.BIP65Height))
+       (block.nVersion < 4 && nHeight >= consensusParams.BIP65Height) ||
+    	(block.nVersion < VERSIONBITS_TOP_BITS && nHeight >= consensusParams.BTGHeight)) 
+
             return state.Invalid(false, REJECT_OBSOLETE, strprintf("bad-version(0x%08x)", block.nVersion),
                                  strprintf("rejected nVersion=0x%08x block", block.nVersion));
 

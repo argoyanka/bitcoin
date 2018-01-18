@@ -119,7 +119,7 @@ SendCoinsDialog::SendCoinsDialog(const PlatformStyle *_platformStyle, QWidget *p
         settings.setValue("fPayOnlyMinFee", false);
     ui->groupFee->setId(ui->radioSmartFee, 0);
     ui->groupFee->setId(ui->radioCustomFee, 1);
-    ui->groupFee->button((int)std::max(0, std::min(1, settings.value("nFeeRadio").toInt())))->setChecked(true);
+    ui->groupFee->button(0)->setChecked(true);
     ui->customFee->setValue(settings.value("nTransactionFee").toLongLong());
     ui->checkBoxMinimumFee->setChecked(settings.value("fPayOnlyMinFee").toBool());
     minimizeFeeSection(settings.value("fFeeSectionMinimized").toBool());
